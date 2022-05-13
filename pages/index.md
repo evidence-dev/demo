@@ -34,7 +34,7 @@ limit 1
 
 
 
-
+<!--
 <BarChart
     title='Daily sales in last month'
     subtitle='USD'
@@ -42,8 +42,18 @@ limit 1
     x=order_date
     y=sales_usd
 />
+-->
+
+<br>
 
 Sales are **{ (data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-2).sales_usd) > 0 ? "up" : "down" }** by {usd_formatter.format(data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-2).sales_usd)} from the previous day, and **{ (data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-8).sales_usd) > 0 ? "up" : "down" }** by {usd_formatter.format(data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-8).sales_usd)} from the same day the previous week.
+
+## Jump to:
+- [📊 Whole Business KPIs](/monthly_KPIs)
+- [📢 Marketing](/marketing)
+- [⚙️ Ops](/operations)
+- [💬 Customer Feedback](/customer)
+- [📦 Retail](/retail)
 
 
 <style>
@@ -77,3 +87,4 @@ var pct_formatter = new Intl.NumberFormat('en-US', {
 });
 
 </script>
+
