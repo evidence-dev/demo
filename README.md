@@ -1,6 +1,6 @@
 # Evidence Template Project
 
-Thank you for checking out Evidence. This is a demo project to show some of what is possible in Evidence. The finished project is deployed at [evidence-demo.netlify.app](evidence-demo.netlify.app)
+Thank you for checking out Evidence. This is a demo project to show some of what is possible in Evidence. The finished project is deployed at [https://evidence-demo.netlify.app](https://evidence-demo.netlify.app)
 
 ## Getting Started
 
