@@ -44,7 +44,7 @@ Sales are **{ (data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-2).sales_u
 />
 
 
-KPIs for a specific date are at /business-performance/[YYYY-MM-DD]. E.g. [/business_performance/2020-01-01](/business_performance/2020-01-01)
+KPIs for a specific date are at /business_performance/[YYYY-MM-DD]. E.g. [/business_performance/2020-01-01](/business_performance/2020-01-01)
 
 
 # Monthly KPIs

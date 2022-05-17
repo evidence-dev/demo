@@ -47,7 +47,7 @@ Sales are **{ (data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-2).sales_u
 
 
 # Jump to:
-- [📊 Whole Business KPIs](/business_performance/summary)
+- [📊 Whole Business KPIs](/business_performance)
 - [💬 Customer Feedback](/customer)
 - [📢 Marketing](/marketing)
 - [⚙️ Ops](/operations)
