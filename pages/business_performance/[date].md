@@ -20,20 +20,37 @@ group by order_date
     |::|::|::|
     | *Sales* | *Orders* | *AOV* |
 
-{:else}
-    
-
-    There are no sales for this date - did you enter it correctly?
-
-{/if}
-
-
 <br>
 <br>
 
 |||
 |::|::|
 |[← Prev Day](/business_performance/{addDays($page.params.date,-1)})|[Next Day →](/business_performance/{addDays($page.params.date,1)})|
+
+
+{:else if $page.params.date.substring(0,4) == '2019' || $page.params.date.substring(0,4) == '2020' || $page.params.date.substring(0,4) == '2021'}
+    
+    There were no sales this day.
+<br>
+<br>
+<div style="line-height:240%;">
+    <br>
+</div>
+
+
+|||
+|::|::|
+|[← Prev Day](/business_performance/{addDays($page.params.date,-1)})|[Next Day →](/business_performance/{addDays($page.params.date,1)})|
+
+
+
+{:else}
+    
+    This is not a date in the Needful Things sales range. 
+    
+    Please enter a date between 2019-01-01 and 2021-12-31, in the format YYYY-MM-DD.
+
+{/if}
 
 
 <style>
