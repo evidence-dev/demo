@@ -1,19 +1,10 @@
 # Evidence Template Project
 
-Thank you for checking out Evidence. This is the project template that you should use to get started. 
+Thank you for checking out Evidence. This is a demo project to show some of what is possible in Evidence. The finished project is deployed at [evidence-demo.netlify.app](evidence-demo.netlify.app)
 
 ## Getting Started
 
-Check out the [documentation](https://docs.evidence.dev) for a complete walk through.
-
-```
-npx degit evidence-dev/template my-project
-cd my-project 
-npm install 
-npm run dev 
-```
-
-Don't clone this repo, just download the code using the steps above. 
+If you are looking to get started with Evidence, the best project to start with is the [template project](https://github.com/evidence-dev/template), or else see our [tutorial](https://docs.evidence.dev/tutorial/introduction).
 
 ## Learning More
 
