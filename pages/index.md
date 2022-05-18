@@ -47,17 +47,20 @@ Sales are **{ (data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-2).sales_u
 
 
 # Jump to:
-- [📊 Whole Business KPIs](/business_performance)
-- [💬 Customer Feedback](/customer)
-- [📢 Marketing](/marketing)
-- [⚙️ Ops](/operations)
-- [📦 Retail](/retail)
+<ul style="list-style-type:none; padding-left:0">
+  <li><a href="/business_performance">📊 Whole Business KPIs</a></li>
+  <li><a href="/customer">💬 Customer Feedback</a></li>
+  <li><a href="/marketing">📢 Marketing</a></li>
+  <li><a href="/operations">⚙️ Ops</a></li>
+  <li><a href="/retail">📦 Retail</a></li>
+</ul>
+
 
 
 <style>
     table {
         width: 100%;
-        
+        padding-bottom: 20px;
     }
     th {
         font-size: 32px;

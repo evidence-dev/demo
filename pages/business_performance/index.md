@@ -152,6 +152,7 @@ Sales are **{ (data.qtr_KPIs.at(-1).sales_usd - data.qtr_KPIs.at(-2).sales_usd) 
 <style>
     table {
         width: 100%;
+        padding-bottom: 20px;
         
     }
     th {

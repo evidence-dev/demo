@@ -2,8 +2,8 @@
 
 Each customer is sent a survey after recieving their products. We use NPS, where customers rate their experience on a 0 - 10 scale. The [NPS score](https://delighted.com/nps-calculator) is on a scale between -100 and 100.
 
-```reviews
 
+```reviews
 select 
 strftime('%Y-%m-%d') as order_day,
 order_month,
@@ -14,13 +14,30 @@ when nps_score > 8 then 100
 when nps_score < 7 then -100
 else 0
 end as nps,
-
+case 
+when nps_score > 8 then 'promotor'
+when nps_score < 7 then 'detractor'
+else 'neutral'
+end as label,
 item
- from reviews
+from reviews
 
 left join orders on reviews.order_id=orders.id
 
 ```
+
+```histogram
+select 
+round(count(*)*1.0 /sum(count(*)) over (),2) as reviews_pct,
+rating,
+nps,
+label
+from ${reviews}
+
+group by rating
+order by rating
+```
+
 
 ```nps_over_time
 select 
@@ -41,10 +58,25 @@ from ${reviews}
 
 |<Value data={data.nps_to_date}/>|
 |::|
-|NPS score to date|
+|*NPS score to date*|
 
 NPS scores of >70 are considered market leading in ecommerce. Our NPS score is well below that, indicating unsatisfied customers.
 
+## Distribution of Scores
+
+Whilst {pct_formatter.format(data.histogram[9].reviews_pct+data.histogram[10].reviews_pct)} of customers are promotors, there are {pct_formatter.format(data.histogram[0].reviews_pct+data.histogram[1].reviews_pct+data.histogram[2].reviews_pct+data.histogram[3].reviews_pct+data.histogram[4].reviews_pct+data.histogram[5].reviews_pct+data.histogram[6].reviews_pct)} that are detractors.
+
+<BarChart 
+    data={data.histogram} 
+    title='NPS review score distribution'
+    x=rating
+    y=reviews_pct
+    series=label
+/>
+
+## Score over Time
+
+The volume of NPS reviews is currently too low for month on month trends to be significant.
 
 <Chart 
     data={data.nps_over_time}
@@ -55,13 +87,13 @@ NPS scores of >70 are considered market leading in ecommerce. Our NPS score is w
     <Bar y=review_count/>
 </Chart>
 
-The volume of NPS reviews is currently too low for month on month trends to be significant.
 
 
 
 <style>
     table {
         width: 100%;
+        padding-bottom: 20px;
         
     }
     th {
@@ -71,3 +103,22 @@ The volume of NPS reviews is currently too low for month on month trends to be s
 
 
 
+<script>
+
+var usd_formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+
+  // These options are needed to round to whole numbers if that's what you want.
+  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
+
+var pct_formatter = new Intl.NumberFormat('en-US', {
+  style: 'percent',
+  // These options are needed to rou//nd to whole numbers if that's what you want.
+  minimumFractionDigits: 1, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
+
+</script>
