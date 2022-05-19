@@ -27,7 +27,7 @@ order by order_month_date desc, orders
     series=channel
 />
 
-## CPA
+## CPA - 2021
 
 
 ```channel_cpa
@@ -65,12 +65,9 @@ where month >= '2021-12-01'
 and marketing_channel is not null
 ```
 
-|  |
+|*2021 CPA*|    
 |::|
-| *2021 CPA* |
-
-| <Value data={data.total_cpa}/> | 
-|::|
+|**<Value data={data.total_cpa}/>**| 
 | {pct_formatter.format(data.total_cpa[0].blended_cpa_usd / 14 - 1)} vs target|
 
 
@@ -122,11 +119,17 @@ CPA is above target - you may wish to reduce marketing spend.
 <style>
     table {
         width: 100%;
-        
+        padding-bottom: 20px;
     }
-    th {
+    th{
+        font-size: 16px;
+    }
+    tr:nth-child(1) {
         font-size: 32px;
+
     }
+
+
 </style>
 
 

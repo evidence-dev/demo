@@ -43,13 +43,12 @@ In the past year, {pct_formatter.format(data.category_summary[0].yearly_sales_pc
 />
 
 
-
 ```products_mix
 select 
 item,
 category,
-round(sum(sales),2) as sales_usd
-
+round(sum(sales),2) as sales_usd,
+round(sum(sales)/sum(sum(sales)) over (),2) as sales_pct
 from orders
 
 where order_month >= '2021-01-01' 
@@ -57,6 +56,8 @@ where order_month >= '2021-01-01'
 group by item
 order by sales_usd desc
 ```
+
+
 
 The most popular items were the <Value data={data.products_mix} row=0/> ({usd_formatter.format(data.products_mix[0].sales_usd)}), <Value data={data.products_mix} row=1/> ({usd_formatter.format(data.products_mix[1].sales_usd)}), and <Value data={data.products_mix} row=2/> ({usd_formatter.format(data.products_mix[2].sales_usd)}).
 
