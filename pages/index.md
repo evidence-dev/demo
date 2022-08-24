@@ -36,9 +36,23 @@ limit 1
 Sales yesterday were **down** <Value data={yesterday_KPIs} column='daily_sales_chg_pct1' /> since the previous day, and **down** <Value data={yesterday_KPIs} column='weekly_sales_chg_pct1' /> on last week.
 
 
-<BigValue data={yesterday_KPIs} value='sales_usd' comparison=daily_sales_chg_pct1 comparisonTitle='vs Previous Day'/>
-<BigValue data={yesterday_KPIs} value='orders' comparison=daily_orders_chg_pct1 comparisonTitle='vs Previous Day'/>
-<BigValue data={yesterday_KPIs} value='aov_usd' comparison=daily_aov_chg_pct1 comparisonTitle='vs Previous Day'/>
+<BigValue 
+  data={yesterday_KPIs} 
+  value='sales_usd' 
+  comparison=daily_sales_chg_pct1 
+  comparisonTitle='vs Previous Day'/>
+
+<BigValue 
+  data={yesterday_KPIs} 
+  value='orders' 
+  comparison=daily_orders_chg_pct1 
+  comparisonTitle='vs Previous Day'/>
+
+<BigValue 
+data={yesterday_KPIs} 
+value='aov_usd' 
+comparison=daily_aov_chg_pct1 
+comparisonTitle='vs Previous Day'/>
 
 
 
