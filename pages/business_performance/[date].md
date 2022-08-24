@@ -4,7 +4,7 @@
 
 ```daily_KPIs
 select 
-strftime('%Y-%m-%d',order_datetime) as order_date,
+order_datetime::date as order_date,
 count(*) as orders,
 round(sum(sales),0) as sales_usd,
 round(sum(sales) / count(*),2) as aov_usd
