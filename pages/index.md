@@ -1,6 +1,6 @@
 
 
-<img src="https://static1.squarespace.com/static/55d5e6bbe4b07fd45aec98a4/t/5a67ff45ec212de974357e39/1622153363313/Needful+logo.png" alt="Needful Things Logo" class ="center"> 
+![Needful Things Logo](needful-logo.png)
 
 
 ```daily_KPIs
