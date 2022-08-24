@@ -9,7 +9,7 @@ The last 7 days pick lists are below:
 
 ```last_7_days_orders
 select 
-strftime('%Y-%m-%d', order_datetime) as order_date
+order_datetime::date as order_date
 from orders
 group by order_date
 order by order_date desc
@@ -20,7 +20,7 @@ limit 7
 
 {#each data.last_7_days_orders as day}
 
-    - [{day.order_date}](/operations/pick_lists/{day.order_date}/)
+    - [<Value data={day}/>](/operations/pick_lists/{day.order_date}/)
 
 {/each}
 

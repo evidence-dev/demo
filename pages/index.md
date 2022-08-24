@@ -2,17 +2,16 @@
 
 ![Needful Things Logo](needful-logo.png)
 
-
 ```daily_KPIs
 select 
-strftime('%Y-%m-%d', order_datetime) as order_date,
+date_trunc('DAY', order_datetime) as order_date,
 count(*) as orders,
 sum(sales) as sales_usd,
 sum(sales) / count(*) as aov_usd,
-(sum(sales))/ (lag(sum(sales) , 1) over (order by order_datetime)) -1 as daily_sales_chg_pct1,
-1.0*(count(*))/ (lag(count(*) , 1) over (order by order_datetime)) -1 as daily_orders_chg_pct1,
-(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_datetime)) -1 as daily_aov_chg_pct1,
-(sum(sales))/ (lag(sum(sales) , 8) over (order by order_datetime)) -1 as weekly_sales_chg_pct1
+(sum(sales))/ (lag(sum(sales) , 1) over (order by order_date)) -1 as daily_sales_chg_pct1,
+1.0*(count(*))/ (lag(count(*) , 1) over (order by order_date)) -1 as daily_orders_chg_pct1,
+(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_date)) -1 as daily_aov_chg_pct1,
+(sum(sales))/ (lag(sum(sales) , 8) over (order by order_date)) -1 as weekly_sales_chg_pct1
 
 from orders
 
@@ -71,6 +70,7 @@ comparisonTitle='vs Previous Day'/>
   <li><a href="/customer">💬 Customer Feedback</a></li>
   <li><a href="/marketing">📢 Marketing</a></li>
   <li><a href="/operations">⚙️ Ops</a></li>
+  <li><a href="/partners">🤝🏽 Partners</a></li>
   <li><a href="/retail">📦 Retail</a></li>
 </ul>
 

@@ -5,7 +5,6 @@ Each customer is sent a survey after recieving their products. We use NPS, where
 
 ```reviews
 select 
-strftime('%Y-%m-%d') as order_day,
 order_month,
 order_datetime,
 nps_score as rating,
@@ -34,7 +33,7 @@ nps,
 label
 from ${reviews}
 
-group by rating
+group by 2,3,4
 order by rating
 ```
 

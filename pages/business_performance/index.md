@@ -3,7 +3,7 @@
 
 ```daily_KPIs
 select 
-strftime('%Y-%m-%d',order_datetime) as order_date,
+order_datetime::date as order_date,
 count(*) as orders,
 round(sum(sales),0) as sales_usd,
 sum(sales) / count(*) as aov_usd
@@ -52,7 +52,7 @@ KPIs for a specific date are at /business_performance/[YYYY-MM-DD]. E.g. [/busin
 
 ```monthly_KPIs
 select 
-strftime('%Y-%m-01',order_datetime) as order_month,
+date_trunc('month',order_datetime) as order_month,
 count(*) as orders,
 round(sum(sales),0) as sales_usd,
 sum(sales) / count(*) as aov_usd
@@ -61,8 +61,8 @@ from orders
 
 where order_month >= '2021-01-01'
 
-group by order_month
-order by order_month
+group by 1
+order by 1
 
 ```
 
@@ -74,7 +74,7 @@ order by order_month desc
 limit 1
 ```
 
-## {data.last_month_KPIs[0].order_month}
+## <Value data = {last_month_KPIs}/>
 
 
 
@@ -103,7 +103,7 @@ Sales are **{ (data.monthly_KPIs.at(-1).sales_usd - data.monthly_KPIs.at(-2).sal
 
 ```qtr_KPIs
 select 
-strftime('%Y', order_datetime) || '-Q' || ((strftime('%m', order_datetime) + 2) / 3) as order_quarter,
+date_part('YEAR', order_datetime) || '-Q' || date_part('QUARTER', order_datetime) as order_quarter,
 count(*) as orders,
 round(sum(sales),0) as sales_usd,
 sum(sales) / count(*) as aov_usd

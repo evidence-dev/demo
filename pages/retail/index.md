@@ -4,16 +4,15 @@
 
 ```products_mix_pct
 select 
-order_month,
+DATE_TRUNC('MONTH',order_datetime) as month,
 category,
-round(sales/sum(sales) over (partition by order_month),3) as sales_pct
+sum(sales) / sum(sum(sales)) over (partition by DATE_TRUNC('MONTH',order_datetime)) as sales_pct
 
 from orders
+where order_datetime >= '2021-01-01' 
 
-where order_month >= '2021-01-01' 
-
-group by order_month, category
-order by order_month, sales_pct
+group by 1,2
+order by 1
 ```
 
 
@@ -47,13 +46,13 @@ In the past year, {pct_formatter.format(data.category_summary[0].yearly_sales_pc
 select 
 item,
 category,
-round(sum(sales),2) as sales_usd,
-round(sum(sales)/sum(sum(sales)) over (),2) as sales_pct
+sum(sales) as sales_usd,
+sum(sales)/sum(sum(sales)) over () as sales_pct
 from orders
 
 where order_month >= '2021-01-01' 
 
-group by item
+group by 1,2
 order by sales_usd desc
 ```
 
@@ -124,7 +123,7 @@ round(sum(sales),3) as sales_usd
 from reviews
 left join orders on orders.id=reviews.order_id
 
-group by item
+group by 1,2
 order by nps_avg
 ```
 
