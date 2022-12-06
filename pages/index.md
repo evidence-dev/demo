@@ -39,19 +39,19 @@ Sales yesterday were **down** <Value data={yesterday_KPIs} column='daily_sales_c
   data={yesterday_KPIs} 
   value='sales_usd' 
   comparison=daily_sales_chg_pct1 
-  comparisonTitle='vs Previous Day'/>
+  comparisonTitle='vs previous day'/>
 
 <BigValue 
   data={yesterday_KPIs} 
   value='orders' 
   comparison=daily_orders_chg_pct1 
-  comparisonTitle='vs Previous Day'/>
+  comparisonTitle='vs previous day'/>
 
 <BigValue 
-data={yesterday_KPIs} 
-value='aov_usd' 
-comparison=daily_aov_chg_pct1 
-comparisonTitle='vs Previous Day'/>
+  data={yesterday_KPIs} 
+  value='aov_usd' 
+  comparison=daily_aov_chg_pct1 
+  comparisonTitle='vs previous day'/>
 
 
 

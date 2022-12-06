@@ -28,3 +28,8 @@ Click on a partner below to go to their report:
 
 {/each}
 
+<style>
+    ul{
+        margin-block-end: 0;
+    }
+</style>

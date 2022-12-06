@@ -38,6 +38,7 @@ order by rating
 ```
 
 
+
 ```nps_over_time
 select 
 order_month,
@@ -55,15 +56,14 @@ count(*) as review_count
 from ${reviews}
 ```
 
-|<Value data={data.nps_to_date}/>|
-|::|
-|*NPS score to date*|
+<BigValue data={nps_to_date} value=nps_avg title="NPS Average to date"/>
 
 NPS scores of >70 are considered market leading in ecommerce. Our NPS score is well below that, indicating unsatisfied customers.
 
 ## Distribution of Scores
 
-Whilst {pct_formatter.format(data.histogram[9].reviews_pct+data.histogram[10].reviews_pct)} of customers are promotors, there are {pct_formatter.format(data.histogram[0].reviews_pct+data.histogram[1].reviews_pct+data.histogram[2].reviews_pct+data.histogram[3].reviews_pct+data.histogram[4].reviews_pct+data.histogram[5].reviews_pct+data.histogram[6].reviews_pct)} that are detractors.
+Whilst {pct_formatter.format(data.histogram[9].reviews_pct+data.histogram[10].reviews_pct)} of customers are promoters, there are {pct_formatter.format(data.histogram[0].reviews_pct+data.histogram[1].reviews_pct+data.histogram[2].reviews_pct+data.histogram[3].reviews_pct+data.histogram[4].reviews_pct+data.histogram[5].reviews_pct+data.histogram[6].reviews_pct)} that are detractors.
+
 
 <BarChart 
     data={data.histogram} 
@@ -104,14 +104,6 @@ The volume of NPS reviews is currently too low for month on month trends to be s
 
 <script>
 
-var usd_formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-
-  // These options are needed to round to whole numbers if that's what you want.
-  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-});
 
 var pct_formatter = new Intl.NumberFormat('en-US', {
   style: 'percent',
