@@ -1,4 +1,4 @@
-# {$page.params.partner} Report
+# {$page.params.partner} Monthly Report
 
 ```all
 select * from partners
@@ -19,7 +19,7 @@ group by 1,2 order by 2,1
 ```
 
 
-<AreaChart data={monthly.filter(d => d.partner === $page.params.partner)} y=cost_usd/>
+<AreaChart data={monthly.filter(d => d.partner === $page.params.partner)} y=cost_usd title="Goods Purchased ($)"/>
 
 ## Most Popular Products to Date
 
@@ -40,7 +40,7 @@ group by 1,2 order by 1,4 desc
 
 The most popular product you ordered by volume is the <Value data={items.filter(d => d.partner === $page.params.partner)} column=item/>, which sold <Value data={items.filter(d => d.partner === $page.params.partner)} column=num_units_num0 /> units. 
 
-<BarChart data={items.filter(d => d.partner === $page.params.partner)} y=num_units_num0 x=item swapXY=true/>
+<BarChart data={items.filter(d => d.partner === $page.params.partner)} y=num_units_num0 x=item swapXY=true title="Units Purchased"/>
 
 
 
@@ -112,4 +112,10 @@ order by 1 desc
         display: flex;
         justify-content: space-between;
     }
+    
+    ul{
+        margin-block-end: 0;
+    }
+
+
 </style>

@@ -24,7 +24,11 @@ limit 7
 
 {/each}
 
-
+<style>
+    ul{
+        margin-block-end: 0;
+    }
+</style>
 
 
 

@@ -48,7 +48,9 @@ order by 6
 
 ```total_cpa
 select 
-round(sum(total_spend_usd) / sum(total_orders),2) as blended_cpa_usd
+round(sum(total_spend_usd) / sum(total_orders),2) as blended_cpa_usd,
+14 as target_cpa_usd,
+(sum(total_spend_usd) / sum(total_orders))/target_cpa_usd - 1 as diff_vs_target_pct
 from ${channel_cpa}
 ```
 
@@ -65,10 +67,14 @@ where month >= '2021-12-01'
 and marketing_channel is not null
 ```
 
-|*2021 CPA*|    
-|::|
-|**<Value data={data.total_cpa}/>**| 
-| {pct_formatter.format(data.total_cpa[0].blended_cpa_usd / 14 - 1)} vs target|
+<BigValue 
+    data={total_cpa} 
+    value=blended_cpa_usd
+    comparison=diff_vs_target_pct
+    comparisonTitle='vs target'
+    downIsGood
+    />
+
 
 
 {#if ((data.total_cpa[0].blended_cpa_usd / 14 - 1) < 0) }
@@ -132,23 +138,3 @@ CPA is above target - you may wish to reduce marketing spend.
 
 </style>
 
-
-<script>
-
-var usd_formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-
-  // These options are needed to round to whole numbers if that's what you want.
-  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-});
-
-var pct_formatter = new Intl.NumberFormat('en-US', {
-  style: 'percent',
-  // These options are needed to round to whole numbers if that's what you want.
-  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-});
-
-</script>
