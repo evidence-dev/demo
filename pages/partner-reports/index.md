@@ -16,7 +16,7 @@ group by 1
 order by 2 desc
 ```
 
-<BarChart data={partner_list} title='Sales per partner'/>
+<BarChart data={partner_list} title='Sales per partner' swapXY/>
 
 ## Partner Reports
 
@@ -24,7 +24,6 @@ Click on a partner below to go to their report:
 
 {#each partner_list as partner_data}
 
-- [{partner_data.partner}](/partners/{partner_data.partner}/)
+- [{partner_data.partner}](/partner-reports/{partner_data.partner}/)
 
 {/each}
-

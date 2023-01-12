@@ -12,11 +12,8 @@ sum(sales) / count(*) as aov_usd,
 1.0*(count(*))/ (lag(count(*) , 1) over (order by order_date)) -1 as daily_orders_chg_pct1,
 (sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_date)) -1 as daily_aov_chg_pct1,
 (sum(sales))/ (lag(sum(sales) , 8) over (order by order_date)) -1 as weekly_sales_chg_pct1
-
 from orders
-
 where order_date >= '2021-12-01'
-
 group by 1
 order by 1
 ```
@@ -70,7 +67,7 @@ comparisonTitle='vs Previous Day'/>
   <li><a href="/customer">💬 Customer Feedback</a></li>
   <li><a href="/marketing">📢 Marketing</a></li>
   <li><a href="/operations">⚙️ Ops</a></li>
-  <li><a href="/partners">🤝🏽 Partners</a></li>
+  <li><a href="/partner-reports">🤝🏽 Partner Reports</a></li>
   <li><a href="/retail">📦 Retail</a></li>
 </ul>
 

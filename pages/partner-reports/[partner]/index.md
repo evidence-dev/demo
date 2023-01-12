@@ -98,7 +98,7 @@ order by 1 desc
 
 {#each months as month_row}
 
-    - [<Value data={month_row}/>  ](/partners/{$page.params.partner}/{month_row.month_monthyear})
+    - [<Value data={month_row}/>  ](/partner-reports/{$page.params.partner}/{month_row.month_monthyear})
 
 {/each}
 
