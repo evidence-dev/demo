@@ -2,7 +2,7 @@
 
 ```pick_list
 select 
-strftime('%Y-%m-%d',order_datetime) as order_day,
+order_datetime::date as order_day,
 item,
 email,
 address,

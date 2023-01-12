@@ -3,18 +3,22 @@
 
 ```daily_KPIs
 select 
-strftime('%Y-%m-%d',order_datetime) as order_date,
+date_trunc('DAY', order_datetime) as order_date,
 count(*) as orders,
-round(sum(sales),0) as sales_usd,
-sum(sales) / count(*) as aov_usd
+sum(sales) as sales_usd,
+sum(sales) / count(*) as aov_usd2,
+(sum(sales))/ (lag(sum(sales) , 1) over (order by order_date)) -1 as daily_sales_chg_pct1,
+1.0*(count(*))/ (lag(count(*) , 1) over (order by order_date)) -1 as daily_orders_chg_pct1,
+(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_date)) -1 as daily_aov_chg_pct1,
+(sum(sales))/ (lag(sum(sales) , 8) over (order by order_date)) -1 as weekly_sales_chg_pct1
+
 
 from orders
 
 where order_date >= '2021-12-01'
 
-group by order_date
-order by order_date
-
+group by 1
+order by 1
 ```
 
 ```yesterday_KPIs
@@ -29,10 +33,23 @@ limit 1
 
 Sales are **{ (data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-2).sales_usd) > 0 ? "up" : "down" }** by {usd_formatter.format(data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-2).sales_usd)} from the previous day, and **{ (data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-8).sales_usd) > 0 ? "up" : "down" }** by {usd_formatter.format(data.daily_KPIs.at(-1).sales_usd - data.daily_KPIs.at(-8).sales_usd)} from the same day the previous week.
 
-| {usd_formatter.format(data.yesterday_KPIs[0].sales_usd)}| <Value data={data.yesterday_KPIs} column='orders' /> | <Value data={data.yesterday_KPIs} column='aov_usd' /> |
-|::|::|::|
-| *Sales* | *Orders* | *AOV* |
+<BigValue 
+  data={yesterday_KPIs} 
+  value='sales_usd' 
+  comparison=daily_sales_chg_pct1 
+  comparisonTitle='vs previous day'/>
 
+<BigValue 
+  data={yesterday_KPIs} 
+  value='orders' 
+  comparison=daily_orders_chg_pct1 
+  comparisonTitle='vs previous day'/>
+
+<BigValue 
+  data={yesterday_KPIs} 
+  value='aov_usd2' 
+  comparison=daily_aov_chg_pct1 
+  comparisonTitle='vs previous day'/>
 
 
 <BarChart
@@ -52,17 +69,20 @@ KPIs for a specific date are at /business_performance/[YYYY-MM-DD]. E.g. [/busin
 
 ```monthly_KPIs
 select 
-strftime('%Y-%m-01',order_datetime) as order_month,
+order_month,
 count(*) as orders,
 round(sum(sales),0) as sales_usd,
-sum(sales) / count(*) as aov_usd
+sum(sales) / count(*) as aov_usd2,
+(sum(sales))/ (lag(sum(sales) , 1) over (order by order_month)) -1 as monthly_sales_chg_pct1,
+1.0*(count(*))/ (lag(count(*) , 1) over (order by order_month)) -1 as monthly_orders_chg_pct1,
+(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_month)) -1 as monthly_aov_chg_pct1
 
 from orders
 
 where order_month >= '2021-01-01'
 
-group by order_month
-order by order_month
+group by 1
+order by 1
 
 ```
 
@@ -74,7 +94,7 @@ order by order_month desc
 limit 1
 ```
 
-## {data.last_month_KPIs[0].order_month}
+## <Value data = {last_month_KPIs}/>
 
 
 
@@ -82,9 +102,22 @@ Sales are **{ (data.monthly_KPIs.at(-1).sales_usd - data.monthly_KPIs.at(-2).sal
 
 
 
-| {usd_formatter.format(data.last_month_KPIs[0].sales_usd)}| <Value data={data.last_month_KPIs} column='orders' /> | <Value data={data.last_month_KPIs} column='aov_usd' /> |
-|::|::|::|
-| *December Sales* | *December Orders* | *December AOV* |
+<BigValue
+    data={last_month_KPIs}
+    value='sales_usd'
+    comparison=monthly_sales_chg_pct1
+    comparisonTitle='vs previous month'/>
+<BigValue
+    data={last_month_KPIs}
+    value='orders'
+    comparison=monthly_orders_chg_pct1
+    comparisonTitle='vs previous month'/>
+<BigValue
+    data={last_month_KPIs}
+    value='aov_usd2'
+    comparison=monthly_aov_chg_pct1
+    comparisonTitle='vs previous month'/>
+
 
 
 
@@ -103,10 +136,13 @@ Sales are **{ (data.monthly_KPIs.at(-1).sales_usd - data.monthly_KPIs.at(-2).sal
 
 ```qtr_KPIs
 select 
-strftime('%Y', order_datetime) || '-Q' || ((strftime('%m', order_datetime) + 2) / 3) as order_quarter,
-count(*) as orders,
+date_part('YEAR', order_datetime) || '-Q' || date_part('QUARTER', order_datetime) as order_quarter,
+count(*) as orders_num0,
 round(sum(sales),0) as sales_usd,
-sum(sales) / count(*) as aov_usd
+sum(sales) / count(*) as aov_usd2,
+(sum(sales))/ (lag(sum(sales) , 1) over (order by order_quarter)) -1 as qtr_sales_chg_pct1,
+1.0*(count(*))/ (lag(count(*) , 1) over (order by order_quarter)) -1 as qtr_orders_chg_pct1,
+(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_quarter)) -1 as qtr_aov_chg_pct1
 
 from orders
 
@@ -130,11 +166,21 @@ limit 1
 
 Sales are **{ (data.qtr_KPIs.at(-1).sales_usd - data.qtr_KPIs.at(-2).sales_usd) > 0 ? "up" : "down" }** by {pct_formatter.format(data.qtr_KPIs.at(-1).sales_usd / data.qtr_KPIs.at(-2).sales_usd -1)} from the previous quarter.
 
-
-
-| {usd_formatter.format(data.last_qtr_KPIs[0].sales_usd)}| <Value data={data.last_qtr_KPIs} column='orders' /> | <Value data={data.last_qtr_KPIs} column='aov_usd' /> |
-|::|::|::|
-| *2021-Q4 Sales* | *2021-Q4 Orders* | *2021-Q4 AOV* |
+<BigValue
+    data={last_qtr_KPIs}
+    value='sales_usd'
+    comparison=qtr_sales_chg_pct1
+    comparisonTitle='vs previous quarter'/>
+<BigValue
+    data={last_qtr_KPIs}
+    value='orders_num0'
+    comparison=qtr_orders_chg_pct1
+    comparisonTitle='vs previous quarter'/>
+<BigValue
+    data={last_qtr_KPIs}
+    value='aov_usd2'
+    comparison=qtr_aov_chg_pct1
+    comparisonTitle='vs previous quarter'/>
 
 
 

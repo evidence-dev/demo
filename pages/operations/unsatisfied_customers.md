@@ -3,7 +3,7 @@
 
 ```unsatisfied_customers
 select 
-strftime('%Y-%m-%d',order_datetime) as order_date_clean, first_name, last_name, email, nps_score
+order_datetime::date as order_date_clean, first_name, last_name, email, nps_score
 from reviews
 left join orders on orders.id=reviews.order_id
 
