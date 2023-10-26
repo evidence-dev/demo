@@ -1,6 +1,12 @@
-
+---
+title: Evidence - Demo KPI Portal 
+hide_title: true
+description: A demo portal for business KPI reports built with Evidence - Generate reports with SQL and Markdown
+---
 
 ![Needful Things Logo](needful-logo.png)
+
+_Needful Things Ecommerce, Inc._
 
 ```daily_KPIs
 select 
@@ -73,6 +79,6 @@ Sales yesterday were **down** <Value data={yesterday_KPIs} column='daily_sales_c
 
 <style>
   img {
-    width: 50%;
+    width: 30%;
   }
 </style>
