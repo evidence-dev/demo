@@ -16,7 +16,14 @@ group by 1
 order by 2 desc
 ```
 
-<BarChart data={partner_list} title='Sales per partner' swapXY/>
+<BarChart 
+    data={partner_list} 
+    title='Sales per partner' 
+    swapXY
+    labels=true
+    yGridlines=false
+    yAxisLabels=false
+/>
 
 ## Partner Reports
 

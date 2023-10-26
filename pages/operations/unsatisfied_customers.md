@@ -16,4 +16,4 @@ order by order_datetime desc
 Below are customers who had a poor experience that we need to follow up with:
 
 
-<DataTable data={data.unsatisfied_customers} rows=50 />
+<DataTable data={unsatisfied_customers} rows=50 />

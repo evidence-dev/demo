@@ -27,7 +27,7 @@ limit 1
 ```
 
 
-# Daily KPIs for <Value data={yesterday_KPIs}/>
+# Daily KPIs for <Value data={yesterday_KPIs} fmt="dd mmm yy"/>
 
 Sales yesterday were **down** <Value data={yesterday_KPIs} column='daily_sales_chg_pct1' /> since the previous day, and **down** <Value data={yesterday_KPIs} column='weekly_sales_chg_pct1' /> on last week.
 
@@ -36,19 +36,19 @@ Sales yesterday were **down** <Value data={yesterday_KPIs} column='daily_sales_c
   data={yesterday_KPIs} 
   value='sales_usd' 
   comparison=daily_sales_chg_pct1 
-  comparisonTitle='vs previous day'/>
+  comparisonTitle='vs prev. day'/>
 
 <BigValue 
   data={yesterday_KPIs} 
   value='orders' 
   comparison=daily_orders_chg_pct1 
-  comparisonTitle='vs previous day'/>
+  comparisonTitle='vs prev. day'/>
 
 <BigValue 
   data={yesterday_KPIs} 
   value='aov_usd' 
   comparison=daily_aov_chg_pct1 
-  comparisonTitle='vs previous day'/>
+  comparisonTitle='vs prev. day'/>
 
 
 
@@ -62,14 +62,13 @@ Sales yesterday were **down** <Value data={yesterday_KPIs} column='daily_sales_c
 
 
 # Jump to:
-<ul style="list-style-type:none; padding-left:0">
-  <li><a href="/business_performance">📊 Whole Business KPIs</a></li>
-  <li><a href="/customer">💬 Customer Feedback</a></li>
-  <li><a href="/marketing">📢 Marketing</a></li>
-  <li><a href="/operations">⚙️ Ops</a></li>
-  <li><a href="/partner-reports">🤝🏽 Partner Reports</a></li>
-  <li><a href="/retail">📦 Retail</a></li>
-</ul>
+
+- [📊 Whole Business KPIs](/business-performance)
+- [💬 Customer Feedback](/customer)
+- [📢 Marketing](/marketing)
+- [⚙️ Ops](/operations)
+- [🤝🏽 Partner Reports](/partner-reports)
+- [📦 Retail](/retail)
 
 
 <style>
