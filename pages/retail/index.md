@@ -15,8 +15,6 @@ group by 1,2
 order by 1
 ```
 
-
-
 ```category_summary
 select 
 category,
