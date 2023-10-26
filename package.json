@@ -12,7 +12,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@evidence-dev/core-components": "^2.0.0",
-    "@evidence-dev/evidence": "^21.0.0"
+    "@evidence-dev/core-components": "^2.1.2",
+    "@evidence-dev/evidence": "^23.0.2"
   }
 }

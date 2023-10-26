@@ -1,6 +1,6 @@
 # NPS Survey
 
-Each customer is sent a survey after recieving their products. We use NPS, where customers rate their experience on a 0 - 10 scale. The [NPS score](https://delighted.com/nps-calculator) is on a scale between -100 and 100.
+Each customer is sent a survey after recieving their products. We use NPS, where customers rate their experience on a 0 - 10 scale. [NPS scores](https://delighted.com/nps-calculator) range on a scale between -100 and 100.
 
 
 ```reviews
@@ -27,7 +27,7 @@ left join orders on reviews.order_id=orders.id
 
 ```histogram
 select 
-round(count(*)*1.0 /sum(count(*)) over (),2) as reviews_pct,
+count(*)*1.0 /sum(count(*)) over () as reviews,
 rating,
 nps,
 label
@@ -62,15 +62,23 @@ NPS scores of >70 are considered market leading in ecommerce. Our NPS score is w
 
 ## Distribution of Scores
 
-Whilst {pct_formatter.format(data.histogram[9].reviews_pct+data.histogram[10].reviews_pct)} of customers are promoters, there are {pct_formatter.format(data.histogram[0].reviews_pct+data.histogram[1].reviews_pct+data.histogram[2].reviews_pct+data.histogram[3].reviews_pct+data.histogram[4].reviews_pct+data.histogram[5].reviews_pct+data.histogram[6].reviews_pct)} that are detractors.
+While 
+{fmt(histogram[9].reviews+histogram[10].reviews,"pct")} of customers are promoters, 
+{fmt(histogram[0].reviews+histogram[1].reviews+histogram[2].reviews+histogram[3].reviews+histogram[4].reviews+histogram[5].reviews+histogram[6].reviews,"pct")} are detractors.
 
 
 <BarChart 
-    data={data.histogram} 
+    data={histogram} 
     title='NPS review score distribution'
     x=rating
-    y=reviews_pct
+    y=reviews
+    yFmt=pct
     series=label
+    labels=true
+    labelPosition=outside
+    stackTotalLabel=false
+    yGridlines=false
+    yAxisLabels=false
 />
 
 ## Score over Time
@@ -78,10 +86,9 @@ Whilst {pct_formatter.format(data.histogram[9].reviews_pct+data.histogram[10].re
 The volume of NPS reviews is currently too low for month on month trends to be significant.
 
 <Chart 
-    data={data.nps_over_time}
+    data={nps_over_time}
     title='Average NPS Score and # of Reviews (2019 - 2022)'
     subtitle='#,#' >
-    
     <Line y=nps_avg/>
     <Bar y=review_count/>
 </Chart>
@@ -100,16 +107,3 @@ The volume of NPS reviews is currently too low for month on month trends to be s
     }
 </style>
 
-
-
-<script>
-
-
-var pct_formatter = new Intl.NumberFormat('en-US', {
-  style: 'percent',
-  // These options are needed to rou//nd to whole numbers if that's what you want.
-  minimumFractionDigits: 1, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-});
-
-</script>

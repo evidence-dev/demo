@@ -18,9 +18,9 @@ order by order_date desc
 limit 7
 ```
 
-{#each data.last_7_days_orders as day}
+{#each last_7_days_orders as day}
 
-    - [<Value data={day}/>](/operations/pick_lists/{day.order_date}/)
+    - [<Value data={day} fmt="dd mmm yyyy"/>](/operations/pick_lists/{day.order_date}/)
 
 {/each}
 

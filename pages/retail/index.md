@@ -15,8 +15,6 @@ group by 1,2
 order by 1
 ```
 
-
-
 ```category_summary
 select 
 category,
@@ -28,17 +26,22 @@ order by yearly_sales_pct desc
 ```
 
 
-In the past year, {pct_formatter.format(data.category_summary[0].yearly_sales_pct+data.category_summary[1].yearly_sales_pct)} of sales have come from <Value data={data.category_summary} row=0/> and <Value data={data.category_summary} row=1/>.
+In the past year, {pct_formatter.format(category_summary[0].yearly_sales_pct+category_summary[1].yearly_sales_pct)} of sales have come from <Value data={category_summary} row=0/> and <Value data={category_summary} row=1/>.
 
 
 
 
 <BarChart 
-    data = {data.products_mix_pct}
+    data = {products_mix_pct}
     title = 'Category Mix, 2021'
     subtitle = '% of sales'
     y=sales_pct
     series=category
+    yMax=1
+    labels=true
+    stackTotalLabel=false
+    yGridlines=false
+    yAxisLabels=False
 />
 
 
@@ -58,18 +61,24 @@ order by sales_usd desc
 
 
 
-The most popular items were the <Value data={data.products_mix} row=0/> ({usd_formatter.format(data.products_mix[0].sales_usd)}), <Value data={data.products_mix} row=1/> ({usd_formatter.format(data.products_mix[1].sales_usd)}), and <Value data={data.products_mix} row=2/> ({usd_formatter.format(data.products_mix[2].sales_usd)}).
+The most popular items were the <Value data={products_mix} row=0/> ({usd_formatter.format(products_mix[0].sales_usd)}), <Value data={products_mix} row=1/> ({usd_formatter.format(products_mix[1].sales_usd)}), and <Value data={products_mix} row=2/> ({usd_formatter.format(products_mix[2].sales_usd)}).
 
 
 <BarChart
     title='Sales by Product'
     subtitle='$, 2021' 
-    data={data.products_mix}
+    data={products_mix}
     x=item
     y=sales_usd
     series=category
     swapXY=true
     sort=false
+    labels=true
+    labelPosition=outside
+    stackTotalLabel=false
+    yGridlines=false
+    labelFmt="$#,k"
+    yAxisLabels=False
 />
 
 
@@ -95,12 +104,12 @@ group by category
 order by nps_avg
 ```
 
-Customers have differing opinions about the products, however: <Value data={data.nps_by_category}/> is an unpopular category in customer NPS reviews.
+Customers have differing opinions about the products, however: <Value data={nps_by_category}/> is an unpopular category in customer NPS reviews.
 
 
 <ScatterPlot
     title='NPS by Category, 2019 - 2021'
-    data={data.nps_by_category}
+    data={nps_by_category}
     x=nps_avg
     y=sales_usd
     yAxisTitle=true
@@ -127,12 +136,12 @@ group by 1,2
 order by nps_avg
 ```
 
-The <Value data={data.nps_by_product}/> (NPS: <Value data={data.nps_by_product} column=nps_avg/>) in particular is dragging down the average.
+The <Value data={nps_by_product}/> (NPS: <Value data={nps_by_product} column=nps_avg/>) in particular is dragging down the average.
 
 
 <ScatterPlot
     title='NPS by Product, 2019 - 2021'
-    data={data.nps_by_product}
+    data={nps_by_product}
     x=nps_avg
     y=sales_usd
     yAxisTitle=true
