@@ -26,6 +26,6 @@ Click on a partner below to go to their report:
 
 {#each partner_list as partner_data}
 
-- [{partner_data.partner}](/partner-reports/{partner_data.partner}/)
+- [{partner_data.partner}](/partner-reports/{partner_data.partner})
 
 {/each}

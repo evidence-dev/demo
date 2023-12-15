@@ -1,7 +1,10 @@
 ## {params.partner} invoice for {fmt(params.date, "MMMM YYYY")}
 
 ```invoice
-select * from needful_things.invoice
+select 
+    *,
+    strftime('%Y-%m', date) as yyyy_mm,
+     from needful_things.invoice
 ```
 
 ```invoice_total
@@ -9,10 +12,8 @@ select * from needful_things.invoice_total
 ```
 
 
-
-
 <DataTable 
-    data={invoice.filter(d => d.partner === params.partner).filter(d => d.date == params.date)} 
+    data={invoice.filter(d => d.partner === params.partner).filter(d => d.yyyy_mm == params.date)} 
     rows=12
 >
     <Column id=date/>

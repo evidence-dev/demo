@@ -80,12 +80,14 @@ select * from needful_things.invoice_total1
 ## Previous Monthly Invoices
 
 ```months
-select * from needful_things.months
+select *, 
+    strftime('%Y-%m', month_monthyear) as yyyy_mm
+ from needful_things.months
 ```
 
 {#each months as month_row}
 
-    - [<Value data={month_row} value=month_monthyear fmt="mmmm yyyy"/>  ](/partner-reports/{params.partner}/{month_row.month_monthyear})
+    - [<Value data={month_row} value=month_monthyear fmt="mmmm yyyy"/>  ](/partner-reports/{params.partner}/{month_row.yyyy_mm}/)
 
 {/each}
 

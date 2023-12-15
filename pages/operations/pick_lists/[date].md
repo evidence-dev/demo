@@ -1,15 +1,18 @@
-# Pick List for {fmt(params.date,"ddd dd mmm, yyyy") }
+# Pick List for {fmt(params.date, "mmmm yyyy")}
 
 ```pick_list
-select * from needful_things.pick_list
+select 
+    *,
+    strftime('%Y-%m-%d', order_day) as yyyy_mm_dd
+ from needful_things.pick_list
 ```
 <!--only show list if at least 1 order-->
-{#if ((pick_list.filter(d => d.order_day == params.date)).length > 0) }
+{#if ((pick_list.filter(d => d.yyyy_mm_dd == params.date)).length > 0) }
     
     The following orders need to be picked and dispatched to customers:
 
     <DataTable 
-        data={pick_list.filter(d => d.order_day == params.date)}
+        data={pick_list.filter(d => d.yyyy_mm_dd == params.date)}
         rowNumbers=false
         rows=all
     />
