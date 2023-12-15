@@ -1,32 +1,20 @@
 # Daily KPIs
 
 
-```daily_KPIs
-select 
-date_trunc('DAY', order_datetime) as order_date,
-count(*) as orders,
-sum(sales) as sales,
-sum(sales) / count(*) as aov,
-(sum(sales))/ (lag(sum(sales) , 1) over (order by order_date)) -1 as daily_sales_chg,
-1.0*(count(*))/ (lag(count(*) , 1) over (order by order_date)) -1 as daily_orders_chg,
-(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_date)) -1 as daily_aov_chg,
-(sum(sales))/ (lag(sum(sales) , 8) over (order by order_date)) -1 as weekly_sales_chg
-from orders
-where order_date >= '2021-12-01'
-group by 1
-order by 1
+```daily_KPIs1
+select * from needful_things.daily_KPIs1
 ```
 
 ```yesterday_KPIs
 select *
-from ${daily_KPIs}
+from ${daily_KPIs1}
 order by order_date desc
 limit 1
 ```
 
 ## [<Value data={yesterday_KPIs} fmt="ddd dd mmm yyyy"/>](/business-performance/2021-12-31)
 
-Sales are **{ (daily_KPIs.at(-1).sales - daily_KPIs.at(-2).sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs.at(-1).sales - daily_KPIs.at(-2).sales,"$###")} from the previous day, and **{ (daily_KPIs.at(-1).sales - daily_KPIs.at(-8).sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs.at(-1).sales - daily_KPIs.at(-8).sales,"$###")} from the same day the previous week.
+Sales are **{ (daily_KPIs1.at(-1).sales - daily_KPIs1.at(-2).sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs1.at(-1).sales - daily_KPIs1.at(-2).sales,"$###")} from the previous day, and **{ (daily_KPIs1.at(-1).sales - daily_KPIs1.at(-8).sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs1.at(-1).sales - daily_KPIs1.at(-8).sales,"$###")} from the same day the previous week.
 
 <BigValue 
   data={yesterday_KPIs} 
@@ -59,7 +47,7 @@ Sales are **{ (daily_KPIs.at(-1).sales - daily_KPIs.at(-2).sales) > 0 ? "up" : "
 <BarChart
     title='Daily sales, Last month'
     subtitle='USD'
-    data={daily_KPIs}
+    data={daily_KPIs1}
     x=order_date
     y=sales
     yFmt=usd
@@ -73,21 +61,7 @@ KPIs for a specific date are at /business-performance/[YYYY-MM-DD]. E.g. [/busin
 
 
 ```monthly_KPIs
-select 
-order_month,
-count(*) as orders,
-round(sum(sales),0) as sales,
-sum(sales) / count(*) as aov,
-(sum(sales))/ (lag(sum(sales) , 1) over (order by order_month)) -1 as monthly_sales_chg,
-1.0*(count(*))/ (lag(count(*) , 1) over (order by order_month)) -1 as monthly_orders_chg,
-(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_month)) -1 as monthly_aov_chg
-
-from orders
-
-where order_month >= '2021-01-01'
-
-group by 1
-order by 1
+select * from needful_things.monthly_KPIs
 
 ```
 
@@ -150,20 +124,7 @@ Sales are **{ (monthly_KPIs.at(-1).sales - monthly_KPIs.at(-2).sales) > 0 ? "up"
 # Quarterly KPIs
 
 ```qtr_KPIs
-select 
-date_part('YEAR', order_datetime) || '-Q' || date_part('QUARTER', order_datetime) as order_quarter,
-count(*) as orders,
-round(sum(sales),0) as sales,
-sum(sales) / count(*) as aov,
-(sum(sales))/ (lag(sum(sales) , 1) over (order by order_quarter)) -1 as qtr_sales_chg,
-1.0*(count(*))/ (lag(count(*) , 1) over (order by order_quarter)) -1 as qtr_orders_chg,
-(sum(sales)/count(*))/ (lag(sum(sales)/count(*) , 1) over (order by order_quarter)) -1 as qtr_aov_chg
-
-from orders
-
-
-group by order_quarter
-order by order_quarter
+select * from needful_things.qtr_KPIs
 
 ```
 

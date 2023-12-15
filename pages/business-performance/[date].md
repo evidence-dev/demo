@@ -1,5 +1,5 @@
 <script>
-    const todaysKPIs = daily_KPIs.filter(d => d.order_date === $page.params.date)[0];
+    const todaysKPIs = daily_KPIs.filter(d => d.order_date === params.date)[0];
 
     var addDays = function(str, days) {
     var myDate = new Date(str);
@@ -10,20 +10,12 @@
 
 
 
-# KPIs for {$page.params.date}
+# KPIs for {params.date}
 
 ## Daily KPIs
 
 ```daily_KPIs
-select 
-order_datetime::date as order_date,
-count(*) as orders,
-round(sum(sales),0) as sales_usd,
-round(sum(sales) / count(*),2) as aov_usd2
-
-from orders
-
-group by order_date
+select * from needful_things.daily_KPIs
 ```
 
 {#if todaysKPIs }
@@ -41,11 +33,11 @@ group by order_date
 
 
 <span class="flex justify-between mt-6">
-    <BigLink href="/business-performance/{addDays($page.params.date,-1)}">← Prev Day</BigLink>
-    <BigLink href="/business-performance/{addDays($page.params.date,1)}">Next Day →</BigLink>
+    <BigLink href="/business-performance/{addDays(params.date,-1)}">← Prev Day</BigLink>
+    <BigLink href="/business-performance/{addDays(params.date,1)}">Next Day →</BigLink>
 </span>
 
-{:else if $page.params.date.substring(0,4) == '2019' || $page.params.date.substring(0,4) == '2020' || $page.params.date.substring(0,4) == '2021'}
+{:else if params.date.substring(0,4) == '2019' || params.date.substring(0,4) == '2020' || params.date.substring(0,4) == '2021'}
     
     There were no sales this day.
 <br>
@@ -56,8 +48,8 @@ group by order_date
 
 
 <span class="flex justify-between">
-    <BigLink href="/business-performance/{addDays($page.params.date,-1)}">← Prev Day</BigLink>
-    <BigLink href="/business-performance/{addDays($page.params.date,1)}">Next Day →</BigLink>
+    <BigLink href="/business-performance/{addDays(params.date,-1)}">← Prev Day</BigLink>
+    <BigLink href="/business-performance/{addDays(params.date,1)}">Next Day →</BigLink>
 </span>
 
 

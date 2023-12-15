@@ -8,12 +8,7 @@ These partners need individual reports on those sales trends.
 ## Revenue to Date, by Partner
 
 ```partner_list
-select
-partner,
-sum(sales) as sales_usd1m
-from partners
-group by 1
-order by 2 desc
+select * from needful_things.partner_list
 ```
 
 <BarChart 

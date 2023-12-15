@@ -1,0 +1,9 @@
+# This file was automatically generated
+name: needful_things
+type: snowflake
+options:
+  account: vb69737.us-central1.gcp
+  database: NEEDFUL_THINGS
+  warehouse: COMPUTE_WH
+  role: NEEDFUL_VIEWER
+  authenticator: userpass

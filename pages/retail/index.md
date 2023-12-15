@@ -3,16 +3,7 @@
 ## Sales Mix
 
 ```products_mix_pct
-select 
-DATE_TRUNC('MONTH',order_datetime) as month,
-category,
-sum(sales) / sum(sum(sales)) over (partition by DATE_TRUNC('MONTH',order_datetime)) as sales_pct
-
-from orders
-where order_datetime >= '2021-01-01' 
-
-group by 1,2
-order by 1
+select * from needful_things.products_mix_pct
 ```
 
 ```category_summary
@@ -46,17 +37,7 @@ In the past year, {pct_formatter.format(category_summary[0].yearly_sales_pct+cat
 
 
 ```products_mix
-select 
-item,
-category,
-sum(sales) as sales_usd,
-sum(sales)/sum(sum(sales)) over () as sales_pct
-from orders
-
-where order_month >= '2021-01-01' 
-
-group by 1,2
-order by sales_usd desc
+select * from needful_things.products_mix
 ```
 
 
@@ -89,19 +70,7 @@ The most popular items were the <Value data={products_mix} row=0/> ({usd_formatt
 
 
 ```nps_by_category
-select 
-category, 
-round(avg(case 
-when nps_score > 8 then 100
-when nps_score <7 then -100
-else 0 end),0) as nps_avg,
-round(sum(sales),3) as sales_usd
-
-from reviews
-left join orders on orders.id=reviews.order_id
-
-group by category
-order by nps_avg
+select * from needful_things.nps_by_category
 ```
 
 Customers have differing opinions about the products, however: <Value data={nps_by_category}/> is an unpopular category in customer NPS reviews.
@@ -120,20 +89,7 @@ Customers have differing opinions about the products, however: <Value data={nps_
 
 
 ```nps_by_product
-select 
-item, 
-category, 
-round(avg(case 
-when nps_score > 8 then 100
-when nps_score <7 then -100
-else 0 end),0) as nps_avg,
-round(sum(sales),3) as sales_usd
-
-from reviews
-left join orders on orders.id=reviews.order_id
-
-group by 1,2
-order by nps_avg
+select * from needful_things.nps_by_product
 ```
 
 The <Value data={nps_by_product}/> (NPS: <Value data={nps_by_product} column=nps_avg/>) in particular is dragging down the average.
@@ -151,13 +107,7 @@ The <Value data={nps_by_product}/> (NPS: <Value data={nps_by_product} column=nps
 />
 
 ```all_reviews
-select 
-nps_score,
-item
-from reviews
-left join orders on orders.id=reviews.order_id
-
-order by item
+select * from needful_things.all_reviews
 ```
 
 

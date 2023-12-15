@@ -1,18 +1,35 @@
 {
-  "name": "needful-things-demo-project",
+  "name": "my-evidence-project",
   "version": "0.0.1",
   "scripts": {
     "build": "evidence build",
+    "build:strict": "evidence build:strict",
     "dev": "evidence dev --open /",
-    "test": "evidence build"
+    "test": "evidence build",
+    "sources": "evidence sources"
   },
   "engines": {
     "npm": ">=7.0.0",
-    "node": ">=14.0.0"
+    "node": ">=16.14.0"
   },
   "type": "module",
   "dependencies": {
-    "@evidence-dev/core-components": "^2.1.2",
-    "@evidence-dev/evidence": "^23.0.2"
+    "@evidence-dev/core-components": "usql",
+    "@evidence-dev/evidence": "usql",
+    "@evidence-dev/faker-datasource": "usql",
+    "@evidence-dev/usql-datatable": "^1.0.2",
+    "@evidence-dev/bigquery": "usql",
+    "@evidence-dev/csv": "usql",
+    "@evidence-dev/duckdb": "usql",
+    "@evidence-dev/mssql": "usql",
+    "@evidence-dev/mysql": "usql",
+    "@evidence-dev/postgres": "usql",
+    "@evidence-dev/snowflake": "usql",
+    "@evidence-dev/sqlite": "usql"
+  },
+  "overrides": {
+    "jsonwebtoken": "9.0.0",
+    "trim@<0.0.3": ">0.0.3",
+    "sqlite3": "5.1.5"
   }
 }

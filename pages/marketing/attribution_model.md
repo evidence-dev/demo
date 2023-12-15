@@ -5,18 +5,7 @@
 The largest channels are currently <Value data={orders_by_channel} row=0/>, <Value data={orders_by_channel} row=1/> and <Value data={orders_by_channel} row=2/>.
 
 ```orders_by_channel
-select 
-channel,
-date_trunc("MONTH", order_datetime) as order_month_date,
-channel_month,
-count(*) as orders
-
-from orders
-
-where order_datetime >= '2021-01-01'
-
-group by channel, order_month_date, 3
-order by order_month_date desc, orders desc
+select * from needful_things.orders_by_channel
 ```
 
 <AreaChart

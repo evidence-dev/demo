@@ -8,14 +8,7 @@ For example, for 20th Jan 2021, the link is: [/operations/pick_lists/2021-01-20/
 The last 7 days pick lists are below:
 
 ```last_7_days_orders
-select 
-order_datetime::date as order_date
-from orders
-group by order_date
-order by order_date desc
-
-
-limit 7
+select * from needful_things.last_7_days_orders
 ```
 
 {#each last_7_days_orders as day}
