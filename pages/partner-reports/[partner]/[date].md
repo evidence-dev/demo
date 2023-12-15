@@ -12,7 +12,7 @@ select * from needful_things.invoice_total
 
 
 <DataTable 
-    data={invoice.filter(d => d.partner === params.partner).filter(d => d.date === params.date)} 
+    data={invoice.filter(d => d.partner === params.partner).filter(d => d.date == params.date)} 
     rows=12
 >
     <Column id=date/>

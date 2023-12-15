@@ -4,12 +4,12 @@
 select * from needful_things.pick_list
 ```
 <!--only show list if at least 1 order-->
-{#if ((pick_list.filter(d => d.order_day === params.date)).length > 0) }
+{#if ((pick_list.filter(d => d.order_day == params.date)).length > 0) }
     
     The following orders need to be picked and dispatched to customers:
 
     <DataTable 
-        data={pick_list.filter(d => d.order_day === params.date)}
+        data={pick_list.filter(d => d.order_day == params.date)}
         rowNumbers=false
         rows=all
     />
