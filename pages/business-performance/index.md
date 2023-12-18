@@ -12,9 +12,9 @@ order by order_date desc
 limit 1
 ```
 
-## Yesterday
+## [<Value data={yesterday_KPIs} fmt="ddd dd mmm yyyy"/>](/business-performance/2021-12-31)
 
-Sales are **{ (daily_KPIs1[0].sales - daily_KPIs1[1].sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs1[0].sales - daily_KPIs1[1].sales,"$###")} from the previous day, and **{ (daily_KPIs1[0].sales - daily_KPIs1[7].sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs1[0].sales - daily_KPIs1[7].sales,"$###")} from the same day the previous week.
+Sales are **{ (daily_KPIs1.at(-1).sales - daily_KPIs1.at(-2).sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs1.at(-1).sales - daily_KPIs1.at(-2).sales,"$###")} from the previous day, and **{ (daily_KPIs1.at(-1).sales - daily_KPIs1.at(-8).sales) > 0 ? "up" : "down" }** by {fmt(daily_KPIs1.at(-1).sales - daily_KPIs1.at(-8).sales,"$###")} from the same day the previous week.
 
 <BigValue 
   data={yesterday_KPIs} 
@@ -54,6 +54,9 @@ Sales are **{ (daily_KPIs1[0].sales - daily_KPIs1[1].sales) > 0 ? "up" : "down" 
 />
 
 
+KPIs for a specific date are at /business-performance/[YYYY-MM-DD]. E.g. [/business-performance/2020-01-01](/business-performance/2020-01-01)
+
+
 # Monthly KPIs
 
 
@@ -74,7 +77,7 @@ limit 1
 
 
 
-Sales are **{ (monthly_KPIs[0].sales - monthly_KPIs[1].sales) > 0 ? "up" : "down" }** by {fmt(monthly_KPIs[0].sales / monthly_KPIs[1].sales -1,"pct")} from the previous month.
+Sales are **{ (monthly_KPIs.at(-1).sales - monthly_KPIs.at(-2).sales) > 0 ? "up" : "down" }** by {fmt(monthly_KPIs.at(-1).sales / monthly_KPIs.at(-2).sales -1,"pct")} from the previous month.
 
 
 
@@ -137,7 +140,7 @@ limit 1
 
 
 
-Sales are **{ (qtr_KPIs[0].sales - qtr_KPIs[1].sales) > 0 ? "up" : "down" }** by {fmt(qtr_KPIs[0].sales / qtr_KPIs[1].sales -1,"pct")} from the previous quarter.
+Sales are **{ (qtr_KPIs.at(-1).sales - qtr_KPIs.at(-2).sales) > 0 ? "up" : "down" }** by {fmt(qtr_KPIs.at(-1).sales / qtr_KPIs.at(-2).sales -1,"pct")} from the previous quarter.
 
 <BigValue
     data={last_qtr_KPIs}
