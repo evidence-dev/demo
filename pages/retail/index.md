@@ -32,7 +32,7 @@ In the past year, {pct_formatter.format(category_summary[0].yearly_sales_pct+cat
     labels=true
     stackTotalLabel=false
     yGridlines=false
-    yAxisLabels=False
+    yAxisLabels=false
 />
 
 
@@ -59,7 +59,7 @@ The most popular items were the <Value data={products_mix} row=0/> ({usd_formatt
     stackTotalLabel=false
     yGridlines=false
     labelFmt="$#,k"
-    yAxisLabels=False
+    yAxisLabels=false
 />
 
 
