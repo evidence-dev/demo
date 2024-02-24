@@ -1,6 +1,6 @@
 
 
-![Needful Things Logo](needful-logo.png)
+![Needful Things Logo](/static/needful-logo.png)
 
 ```daily_KPIs
 select 
